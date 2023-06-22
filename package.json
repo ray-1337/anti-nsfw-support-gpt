@@ -1,0 +1,12 @@
+{
+  "name": "anti-nsfw-support-gpt",
+  "keywords": [
+    "openai",
+    "gpt"
+  ],
+  "author": "ray",
+  "license": "MIT",
+  "dependencies": {
+    "openai": "^3.3.0"
+  }
+}
