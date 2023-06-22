@@ -2,7 +2,8 @@
   "name": "anti-nsfw-support-gpt",
   "scripts": {
     "compile": "node -e \"const { compileToJSONL } = require('./index.js'); compileToJSONL();\"",
-    "uploadFineTune": "node -e \"const { uploadFileForFineTuning } = require('./index.js'); uploadFileForFineTuning();\""
+    "uploadFineTune": "node -e \"const { uploadFileForFineTuning } = require('./index.js'); uploadFileForFineTuning();\"",
+    "createFineTune": "node -e \"const { createFineTuneModel } = require('./index.js'); createFineTuneModel();\""
   },
   "keywords": [
     "openai",

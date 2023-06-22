@@ -60,7 +60,30 @@ async function uploadFileForFineTuning() {
   return;
 };
 
+// 3 create a fine tune model
+async function createFineTuneModel() {
+  try {
+    const rawFileID = await readFile(fineTuneFileIDPath);
+    if (!rawFileID) return;
+
+    const fileID = Buffer.from(rawFileID, "utf-8").toString("utf-8");
+
+    // testing, will adjust the batch size and epoch in the future
+    const response = await openai.createFineTune({
+      training_file: fileID,
+      model: "davinci"
+    });
+
+    console.log(response);
+  } catch (error) {
+    console.error(error.response.data);
+  };
+
+  return;
+};
+
 module.exports = {
   compileToJSONL,
-  uploadFileForFineTuning
+  uploadFileForFineTuning,
+  createFineTuneModel
 };
