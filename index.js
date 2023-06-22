@@ -13,6 +13,7 @@ const openai = new OpenAIApi(new Configuration({
 
 const compiledJSONPath = path.join(__dirname, "compiled.jsonl");
 const fineTuneFileIDPath = path.join(__dirname, "fineTuneFileID");
+const fineTuneAftermathFileIDPath = path.join(__dirname, "fineTuneAftermathFileID");
 
 // 1. compile .txt to .jsonl
 // yet im still trying to find an efficient way turning paragraph into one liner
@@ -75,6 +76,10 @@ async function createFineTuneModel() {
     });
 
     console.log(response);
+
+    if (response.data.id) {
+      await writeFile(fineTuneAftermathFileIDPath, response.data.id, { encoding: "utf-8" });
+    };
   } catch (error) {
     console.error(error.response.data);
   };
