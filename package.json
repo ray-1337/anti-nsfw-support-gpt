@@ -1,5 +1,8 @@
 {
   "name": "anti-nsfw-support-gpt",
+  "scripts": {
+    "compile": "node -e \"const { compileToJSONL } = require('./index.js'); compileToJSONL();\""
+  },
   "keywords": [
     "openai",
     "gpt"
