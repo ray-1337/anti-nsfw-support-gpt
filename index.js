@@ -6,7 +6,7 @@ const path = require("node:path");
 
 const { OpenAIApi, Configuration } = require("openai");
 
-const { createFineTune, createFile } = new OpenAIApi(new Configuration({
+const openai = new OpenAIApi(new Configuration({
   organization: process.env.ORGANIZATION,
   accessToken: process.env.OPENAI_KEY
 }));
