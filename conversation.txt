@@ -1,0 +1,53 @@
+What is Anti-NSFW?
+Anti-NSFW is a Discord bot that was created since 2020 and their main goal is to combat sensitive contents and creating a safe environment for the guild.
+
+Can the bot block flashing images or just NSFW content in general?
+For now, the bot is only detecting NSFW content in general, such as nudity. We'll be planning to expand our moderation to gore, and more in the future.
+
+How do I verify?
+With /verify command.
+
+I set up the bot and it's not deleting NSFW content
+This could happen due to either false positive or misconfigration. Try to adjust the bot sensitivity by using /settings probability command. Also, try to use /settings watch to make sure the bot is watching the text channel. Also, don't forget to check if the bot is actually has permissions to delete the messages in a text channel.
+
+What is preview mode?
+Preview mode, as the name intended, is to check if the bot is working as expected without deleting anything but sending you an output of bot accuracy.
+
+How do I do the captcha?
+After running /verify command, you'll be explicitly asked to input the CAPTCHAs by clicking the button below the CAPTCHAs embed.
+
+Do I have to add every text channels?
+You only need to watch text channels when it's needed.
+
+What is NSFWJS?
+NSFWJS is a content moderation machine learning model created by Infinite Red. It is slow, but far more accurate.
+
+What's the different between NSFWJS and Smith Morra?
+NSFWJS is a content moderation machine learning model created by Infinite Red. Meanwhile, Smith Morra is a new content moderation machine learning model created by Blob Project.
+
+What model should I use?
+You can use NSFWJS if you are aiming accuracy, and you can use Smith Morra if you are aiming fast checking.
+
+Is the bot supports GIF or video checking?
+Yes. It is a part of our premium plan. You can purchase it through our official store, https://blobproj.sellix.io.
+
+How do I enable GIF or video checking?
+By using /features toggle and choose **Video Moderation**. If you want to enable specific animated content type, you can try using /features video toggle
+
+Where I could purchase premium plan?
+Through our official store, https://blobproj.sellix.io.
+
+What is Blob Project?
+Blob Project is a small organization partly creating YouTube contents and managing few projects such as Anti-NSFW.
+
+Is Anti-NSFW open source?
+No.
+
+Is Anti-NSFW safe to use?
+Yes.
+
+Where I can report the image?
+If the content is not accurate, according to our bot, you can report it through our command "/settings analyze" and submit them by clicking "Is it inaccurate?" button.
+
+Do you have Discord server?
+Yes, feel free to visit our Discord server, https://discord.blob-project.com
