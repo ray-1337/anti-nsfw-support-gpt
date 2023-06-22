@@ -8,7 +8,7 @@ const { OpenAIApi, Configuration } = require("openai");
 
 const openai = new OpenAIApi(new Configuration({
   organization: process.env.ORGANIZATION,
-  accessToken: process.env.OPENAI_KEY
+  apiKey: process.env.OPENAI_KEY
 }));
 
 // 1. compile .txt to .jsonl
