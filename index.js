@@ -3,6 +3,7 @@ require("dotenv/config");
 const { readFile, writeFile, rm } = require("node:fs/promises");
 const { existsSync, createReadStream } = require("node:fs");
 const path = require("node:path");
+const { inspect } = require("node:util");
 
 const { OpenAIApi, Configuration } = require("openai");
 
@@ -61,7 +62,7 @@ async function uploadFileForFineTuning() {
   return;
 };
 
-// 3 create a fine tune model
+// 3. create a fine tune model
 async function createFineTuneModel() {
   try {
     const rawFileID = await readFile(fineTuneFileIDPath);
@@ -87,8 +88,31 @@ async function createFineTuneModel() {
   return;
 };
 
+// 4. check list fine tune
+async function retrieveCurrentFineTuneModel() {
+  try {
+    const rawFileTuneAftermathFile = await readFile(fineTuneAftermathFileIDPath);
+
+    const fileTuneAftermathFileID = Buffer.from(rawFileTuneAftermathFile, "utf-8").toString("utf-8");
+    if (!fileTuneAftermathFileID?.length) return;
+
+    const fineTuneAftermath = await openai.retrieveFineTune(fileTuneAftermathFileID);
+
+    if (fineTuneAftermath?.data) {
+      return console.log(inspect(fineTuneAftermath.data, { depth: null }))
+    };
+
+    console.log(fineTuneAftermath)
+  } catch (error) {
+    console.error(error?.response?.data);
+  };
+
+  return;
+};
+
 module.exports = {
   compileToJSONL,
   uploadFileForFineTuning,
-  createFineTuneModel
+  createFineTuneModel,
+  retrieveCurrentFineTuneModel
 };
