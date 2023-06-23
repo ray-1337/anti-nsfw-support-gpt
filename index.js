@@ -15,6 +15,7 @@ const openai = new OpenAIApi(new Configuration({
 const compiledJSONPath = path.join(__dirname, "compiled.jsonl");
 const fineTuneFileIDPath = path.join(__dirname, "fineTuneFileID");
 const fineTuneAftermathFileIDPath = path.join(__dirname, "fineTuneAftermathFileID");
+const fineTunedModelIDPath = path.join(__dirname, "fineTunedModelID");
 
 // 1. compile .txt to .jsonl
 // yet im still trying to find an efficient way turning paragraph into one liner
@@ -49,8 +50,12 @@ async function compileToJSONL() {
 };
 
 // 2. upload file to openai
-async function uploadFileForFineTuning() {
+async function uploadFileForFineTuning(fresh) {
   try {
+    if (fresh === true) {
+      await openai.deleteFile(await getFileForTuningID());
+    };
+
     const response = await openai.createFile(createReadStream(compiledJSONPath), 'fine-tune');
     
     console.log(response.data);
@@ -74,7 +79,8 @@ async function getFileForTuningID() {
 // 3. create a fine tune model
 async function createFineTuneModel() {
   try {
-    if (existsSync(fineTunedModelIDPath)) {
+    const fineTunedModelExist = existsSync(fineTunedModelIDPath);
+    if (fineTunedModelExist) {
       await uploadFileForFineTuning(true);
     };
 
@@ -84,7 +90,9 @@ async function createFineTuneModel() {
     // testing, will adjust the batch size and epoch in the future
     const response = await openai.createFineTune({
       training_file: fileID,
-      model: "davinci"
+      model: fineTunedModelExist ? Buffer.from(await readFile(fineTunedModelIDPath), "utf-8").toString("utf-8") : "davinci",
+      learning_rate_multiplier: 0.2,
+      n_epochs: 5
     });
 
     console.log(response);
@@ -127,6 +135,7 @@ async function getFineTuneModelID() {
 
   return fileTuneAftermathFileID || null;
 };
+
 module.exports = {
   compileToJSONL,
   uploadFileForFineTuning,
