@@ -91,8 +91,8 @@ async function createFineTuneModel() {
     const response = await openai.createFineTune({
       training_file: fileID,
       model: fineTunedModelExist ? Buffer.from(await readFile(fineTunedModelIDPath), "utf-8").toString("utf-8") : "davinci",
-      learning_rate_multiplier: 0.2,
-      n_epochs: 5
+      learning_rate_multiplier: 0.05,
+      n_epochs: 10
     });
 
     console.log(response);
