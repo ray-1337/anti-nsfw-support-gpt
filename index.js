@@ -115,6 +115,10 @@ async function retrieveCurrentFineTuneModel() {
 
     const fineTuneAftermath = await openai.retrieveFineTune(modelID);
 
+    if (fineTuneAftermath?.data?.fine_tuned_model) {
+      await writeFile(fineTunedModelIDPath, fineTuneAftermath.data.fine_tuned_model, { encoding: "utf-8" });
+    };
+
     if (fineTuneAftermath?.data) {
       return console.log(inspect(fineTuneAftermath.data, { depth: null }))
     };
