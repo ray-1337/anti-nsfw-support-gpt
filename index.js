@@ -63,13 +63,23 @@ async function uploadFileForFineTuning() {
   return;
 };
 
+async function getFileForTuningID() {
+  const rawFileID = await readFile(fineTuneFileIDPath);
+  if (!rawFileID) return null;
+
+  const fileID = Buffer.from(rawFileID, "utf-8").toString("utf-8");
+  return fileID?.length ? fileID : null;
+};
+
 // 3. create a fine tune model
 async function createFineTuneModel() {
   try {
-    const rawFileID = await readFile(fineTuneFileIDPath);
-    if (!rawFileID) return;
+    if (existsSync(fineTunedModelIDPath)) {
+      await uploadFileForFineTuning(true);
+    };
 
-    const fileID = Buffer.from(rawFileID, "utf-8").toString("utf-8");
+    const fileID = await getFileForTuningID();
+    if (!fileID) return;
 
     // testing, will adjust the batch size and epoch in the future
     const response = await openai.createFineTune({
