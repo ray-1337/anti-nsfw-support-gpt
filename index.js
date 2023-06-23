@@ -34,7 +34,7 @@ async function compileToJSONL() {
   for (let index = 0; index < rawConversationArray.length; index++) {
     if (index % 2 === 0) {
       const prompt = rawConversationArray[index] + " ->";
-      const completion = " " + rawConversationArray[index + 1] + " END";
+      const completion = " " + rawConversationArray[index + 1] + "\n";
 
       collectedConversationInManner.push({prompt, completion})
     };
