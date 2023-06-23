@@ -92,12 +92,10 @@ async function createFineTuneModel() {
 // 4. check list fine tune
 async function retrieveCurrentFineTuneModel() {
   try {
-    const rawFileTuneAftermathFile = await readFile(fineTuneAftermathFileIDPath);
+    const modelID = await getFineTuneModelID();
+    if (!modelID) return;
 
-    const fileTuneAftermathFileID = Buffer.from(rawFileTuneAftermathFile, "utf-8").toString("utf-8");
-    if (!fileTuneAftermathFileID?.length) return;
-
-    const fineTuneAftermath = await openai.retrieveFineTune(fileTuneAftermathFileID);
+    const fineTuneAftermath = await openai.retrieveFineTune(modelID);
 
     if (fineTuneAftermath?.data) {
       return console.log(inspect(fineTuneAftermath.data, { depth: null }))
@@ -111,6 +109,14 @@ async function retrieveCurrentFineTuneModel() {
   return;
 };
 
+async function getFineTuneModelID() {
+  const rawFileTuneAftermathFile = await readFile(fineTuneAftermathFileIDPath);
+
+  const fileTuneAftermathFileID = Buffer.from(rawFileTuneAftermathFile, "utf-8").toString("utf-8");
+  if (!fileTuneAftermathFileID?.length) return null;
+
+  return fileTuneAftermathFileID || null;
+};
 module.exports = {
   compileToJSONL,
   uploadFileForFineTuning,
